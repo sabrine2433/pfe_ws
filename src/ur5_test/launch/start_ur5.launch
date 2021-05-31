@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="ur5_test" type="Spray_Path.py"  name="Spray_path_generation" cwd="node"/>
+    <node pkg="ur5_test" type="Command_Spray.py"  name="Spray_gun_command" cwd="node"/>
+    <node pkg="ur5_test" type="Test_moveit.py"  name="ur5_command" cwd="node"/>
+</launch>

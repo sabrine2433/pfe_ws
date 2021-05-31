@@ -1,0 +1,2 @@
+ur5_camera:ur5_moveit_config:ur5_pcl:ur5_test:ur_description:ur_gazebo
+-DCATKIN_DEVEL_PREFIX=/home/sabrine/Bureau/pfe_ws/devel -DCMAKE_INSTALL_PREFIX=/home/sabrine/Bureau/pfe_ws/install -G Unix Makefiles

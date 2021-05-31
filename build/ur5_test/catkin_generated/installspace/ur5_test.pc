@@ -1,0 +1,8 @@
+prefix=/home/sabrine/Bureau/pfe_ws/install
+
+Name: ur5_test
+Description: Description of ur5_test
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: moveit_core moveit_ros_planning_interface moveit_ros_move_group actionlib actionlib_msgs message_runtime

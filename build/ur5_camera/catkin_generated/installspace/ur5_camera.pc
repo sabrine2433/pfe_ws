@@ -1,0 +1,8 @@
+prefix=/home/sabrine/Bureau/pfe_ws/install
+
+Name: ur5_camera
+Description: Description of ur5_camera
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

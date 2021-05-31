@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="test_jean">
+  <link name="world"/>
+  <link name="base0_link"> 
+    <inertial>
+      <origin
+        xyz="0.275714986842488 0.0904135841410607 0.100135580085419"
+        rpy="0 0 0" />
+      <mass value="35.9737389131107" />
+      <inertia
+        ixx="0.29221929557845"
+        ixy="9.66146955461936E-18"
+        ixz="3.80862716992568E-17"
+        iyy="1.80051664011352"
+        iyz="1.85395944369694E-17"
+        izz="1.85206692955711" />
+    </inertial>
+    
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ur_description/meshes/base0_link.STL" />
+        </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ur_description/meshes/base0_link.STL" />
+      </geometry>
+
+    </collision>
+  </link>
+  
+  <link name="jean">
+    <inertial>
+      <origin
+        xyz="-0.233005894548119 2.10580335099908E-06 0.762332413134572"
+        rpy="0 0 0" />
+      <mass value="60.4718465961702" />
+      <inertia
+        ixx="4.59668022137859"
+        ixy="-0.000289085501294235"
+        ixz="4.87989461745594E-05"
+        iyy="5.38473237789648"
+        iyz="-3.73119090490317E-05"
+        izz="1.29105622472779" />
+      </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ur_description/meshes/jean.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ur_description/meshes/jean.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="pant_link"
+    type="fixed">
+    <origin
+      xyz="0.498714986842488 -0.199993457231587 0.0904135841410607"
+      rpy="1.5707963267949 0.00437080591465176 0" />
+    <parent
+      link="base0_link" />
+    <child
+      link="jean" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+    <joint
+    name="world_link"
+    type="fixed">
+    <origin
+      xyz="-0.498714986842488 -0.0904135841410607 0"
+      rpy="-1.5707963267949 0.00437080591465176 0" />
+    <parent
+      link="world" />
+    <child
+      link="base0_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <gazebo reference ="jean">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference ="base0_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+</robot>
