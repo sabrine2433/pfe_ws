@@ -101,7 +101,7 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          pedestal:
+          support:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -212,7 +212,7 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          pedestal:
+          support:
             Alpha: 1
             Show Axes: false
             Show Trail: false

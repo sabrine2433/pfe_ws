@@ -63,7 +63,7 @@ def tri(c):
 def paint(contours,img,d):
 	tab_res=[]
 
-	mask=np.zeros(shape=[800,800], dtype=np.uint8)
+	mask=np.zeros(shape=[1278,1700], dtype=np.uint8)
 	for j in range(len(contours)):
 		rect = cv2.minAreaRect(contours[j]) #cv2.minAreaRect() for finding the minimum area rotated rectangle.
 		#This takes as input a 2D point set and returns a Box2D structure which contains the following details – (center(x, y), (width, height), angle of rotation)
@@ -145,11 +145,12 @@ def generate(v,path):
 
 
 
-img_origin=cv2.imread("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original.jpg")
+img_origin=cv2.imread("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png")
 gray = cv2.cvtColor(img_origin, cv2.COLOR_BGR2GRAY )
-cv2.imshow("diff_img",gray)
-cv2.imwrite("diff.jpg",gray)
-img_in,img,img1=init("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original.jpg","/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/modele.jpg")# init(image_originale(avant le modification ),image_modele)
+#cv2.imshow("diff_img",gray)
+#cv2.imwrite("diff.jpg",gray)
+print("*********************Done1-2*****************")
+img_in,img,img1=init("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png","/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/jean2.png")# init(image_originale(avant le modification ),image_modele)
 contours,bw=FindContours(img,img1,img_in)
 waypoints=paint(contours,bw,20) #paint(image_originale,Rayon_spay(dans ce cas = 20 px))
 print(waypoints)
@@ -157,8 +158,8 @@ cv2.drawContours(img_origin,contours,-1, (0,0,0),3)
 print("done")
 for i in range(len(waypoints)-1):
 	img_in=cv2.line(img_origin,waypoints[i],waypoints[i+1],(0,0,255),2)
-	cv2.imshow("result",img_origin)
-	cv2.imwrite("result.jpg",img_origin)
+	#cv2.imshow("result2",img_origin)
+	cv2.imwrite("result2.png",img_origin)
 generate(waypoints,'WayPoints.csv')
 
 cv2.waitKey(0)

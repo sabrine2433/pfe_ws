@@ -16,7 +16,7 @@ from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import Point
 from std_msgs.msg import Duration
 
-class UR5_ARM(object):
+class UR5_ARM():
 	
 	robot = moveit_commander.RobotCommander()
 	scene = moveit_commander.PlanningSceneInterface()
@@ -44,16 +44,16 @@ class UR5_ARM(object):
 
 		#Print the name of the end-effector link for this group:
 		eef = self.group.get_end_effector_link()
-		print ("============ End effector: %s" % eef)
-		print ("============RPY : {} " .format(self.group.get_current_rpy(eef)))
+		print ("============ End effector: %s" % eef,"*************")
+		print ("============RPY : {} " .format(self.group.get_current_rpy(eef)),"**************")
 
 		# Get a list of all the groups in the robot:
 		group_names = self.robot.get_group_names()
-		print ("============ Robot Groups:",self.robot.get_group_names())
+		print ("============ Robot Groups:",self.robot.get_group_names(),"*****************")
 
 		# Sometimes for debugging it is useful to print the entire state of the
 		# robot:
-		print ("============ Printing robot state")
+		print ("**************Robot state***************")
 		print (self.robot.get_current_state())
 		print ("")
 	
@@ -88,6 +88,7 @@ class UR5_ARM(object):
 		self.group.stop()
 		self.group.clear_pose_targets()
 
+
 	def CartesianPath(self):
 		pose_goal= geometry_msgs.msg.PoseStamped().pose
 		a = self.group.get_current_rpy(self.eef_link)
@@ -112,6 +113,11 @@ class UR5_ARM(object):
 			waypoints.append(copy.deepcopy(pose_goal))
 			line_count+=1
 			csv_file.close()
+
+			#Compute a Cartesian path that follows specified waypoints with a step size of at most eef_step meters 
+			#between end effector configurations of consecutive points in the result trajectory. 
+			#Return a value that is between 0.0 and 1.0 indicating the fraction of the path achieved
+			#as described by the waypoints. Return -1.0 in case of error.
 			(plan, fraction) = self.group.compute_cartesian_path(
                                       waypoints,   # waypoints to follow
                                        0.05,        # eef_step

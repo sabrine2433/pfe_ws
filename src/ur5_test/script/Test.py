@@ -81,6 +81,6 @@ with open('src/ur5_test/script/WayPoints.csv') as csv_file:
 	line_count+=1
                     
 csv_file.close()
-print(waypoints)
 DisplayPath(waypoints,"/world")
+print("done")
 

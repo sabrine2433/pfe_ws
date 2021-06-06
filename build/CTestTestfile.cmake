@@ -5,9 +5,9 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
-subdirs("ur5_moveit_config")
 subdirs("ur5_camera")
 subdirs("ur5_pcl")
 subdirs("ur5_test")
 subdirs("ur_description")
+subdirs("ur5_moveit_config")
 subdirs("ur_gazebo")

@@ -8,7 +8,7 @@ from std_msgs.msg import Bool
 if __name__ == '__main__':
         rospy.init_node('generate_Spray_gun_command',anonymous=True)  
         listener = tf.TransformListener()#help make the task of receiving transforms ( get access to frame transformations)
-        #rospy.wait_for_service('spawn')
+        rospy.wait_for_service('spawn')
         rospy.spin()#keep the program running until killing manually
         i=0
         Gun=False
@@ -24,7 +24,7 @@ if __name__ == '__main__':
                         z_g= float(row[2])
                         a=x_g,y_g,z_g
                         waypoints.append(a)
-                        print(waypoints)
+                        
 
 
 
@@ -47,6 +47,7 @@ if __name__ == '__main__':
                         i+=1
                 pub.publish(Gun)
                 rate.sleep()
+print("done")
 
 
 

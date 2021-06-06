@@ -1,1 +1,1 @@
-set(ORDERED_PATHS "/home/sabrine/ws_moveit/devel/lib;/opt/ros/noetic/lib")
+set(ORDERED_PATHS "/opt/ros/noetic/lib;/home/sabrine/ws_moveit/devel/lib")

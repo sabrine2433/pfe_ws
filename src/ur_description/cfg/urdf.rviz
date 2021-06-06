@@ -63,7 +63,7 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base0_link:
+        cabin:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -88,7 +88,7 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base0_link:
+        cabin:
           Value: true
         jean:
           Value: true
@@ -101,7 +101,7 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
-          base0_link:
+          cabin:
             jean:
               {}
       Update Interval: 0

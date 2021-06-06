@@ -1,3 +1,12 @@
 {
-    "python.pythonPath": "/bin/python3"
+    "python.pythonPath": "/bin/python3",
+    "ros.distro": "noetic",
+    "python.autoComplete.extraPaths": [
+        "/home/sabrine/Bureau/pfe_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/sabrine/Bureau/pfe_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
 }

@@ -3,11 +3,11 @@
 
 
     <link name="camera_support">
-    <inertial>
-      <origin xyz="0 0 0.5" rpy="0 0 0"/>
-      <mass value="20"/>
-      <inertia ixx="200" ixy="200" ixz="200" iyy="200" iyz="200" izz="200"/>
-     </inertial>
+      <inertial>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+       <mass value="20"/>
+       <inertia ixx="200" ixy="200" ixz="200" iyy="200" iyz="200" izz="200"/>
+      </inertial>
 
      <visual>
        <origin xyz="0 0 0.5" rpy="0 0 0"/>
@@ -52,7 +52,9 @@
     </inertial>
   </link>
 
- <joint name="camera_support" type="fixed">
+ 
+ 
+<joint name="camera_support" type="fixed">
     <axis xyz="0 1 0" />
     <origin xyz="0 2.5 -0.2" rpy="0 0 -3.14"/>
     <parent link="world"/>
@@ -70,6 +72,7 @@
     <parent link="camera_link"/>
     <child link="camera_optical_link"/>
   </joint>
+
  <link name="camera_optical_link"  />
     <gazebo reference="camera_link">
       <mu1>0.2</mu1>
@@ -82,7 +85,7 @@
       <material>Gazebo/Orange</material>
      </gazebo>
 
-   <xacro:property name="link_name" value="camera_link" />
+<xacro:property name="link_name" value="camera_link" />
  <xacro:property name="camera_name" value="3Dcamera" />
  <xacro:property name="frame_name" value="camera_optical_link" />
 

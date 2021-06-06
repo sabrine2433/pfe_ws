@@ -12,7 +12,8 @@ ARM.GoHome()
 rospy.Rate(0.5)
 ARM.ARMInfo()
 plan,fraction,waypoints=ARM.CartesianPath()
-ARM.DisplayPath(waypoints)
+ARM.DisplayPath(waypoints,'/world')
+print("*****************Done***************")
 if fraction>=99 :
 	ARM.execute_plan(plan)
 else :

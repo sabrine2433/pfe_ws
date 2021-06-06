@@ -131,11 +131,11 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/sabrine/Bureau/pfe_ws/build/gtest/cmake_install.cmake")
-  include("/home/sabrine/Bureau/pfe_ws/build/ur5_moveit_config/cmake_install.cmake")
   include("/home/sabrine/Bureau/pfe_ws/build/ur5_camera/cmake_install.cmake")
   include("/home/sabrine/Bureau/pfe_ws/build/ur5_pcl/cmake_install.cmake")
   include("/home/sabrine/Bureau/pfe_ws/build/ur5_test/cmake_install.cmake")
   include("/home/sabrine/Bureau/pfe_ws/build/ur_description/cmake_install.cmake")
+  include("/home/sabrine/Bureau/pfe_ws/build/ur5_moveit_config/cmake_install.cmake")
   include("/home/sabrine/Bureau/pfe_ws/build/ur_gazebo/cmake_install.cmake")
 
 endif()
