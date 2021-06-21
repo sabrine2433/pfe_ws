@@ -8,6 +8,8 @@ from numpy import asarray
 import math
 import csv 
 
+
+
 def fonction(pt1,pt2,pt3,pt4,d):                       
 	xa,ya=pt1
 	xb,yb=pt2 
@@ -54,6 +56,9 @@ def FindContours(img,img1,res):
 	bw= cv2.GaussianBlur(bw, (7, 7), 0)   #appliquer un filtre pour éliminer le bruit (un filtre gaussien)
 	contours1,hierarchy = cv2.findContours(bw, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)# determiner les contours des zones d'interet 
 	cv2.drawContours(res,contours1,-1, (0,0,0),3)
+	
+	cv2.imshow('res',res)
+	
 	return contours1,bw
 
 def tri(c):
@@ -63,12 +68,23 @@ def tri(c):
 def paint(contours,img,d):
 	tab_res=[]
 
-	mask=np.zeros(shape=[1278,1700], dtype=np.uint8)
+	mask=np.zeros(shape=[500,500], dtype=np.uint8)
 	for j in range(len(contours)):
 		rect = cv2.minAreaRect(contours[j]) #cv2.minAreaRect() for finding the minimum area rotated rectangle.
 		#This takes as input a 2D point set and returns a Box2D structure which contains the following details – (center(x, y), (width, height), angle of rotation)
 		box = cv2.boxPoints(rect)#limitation of the interest zone in a rectagle box
 		box = np.int0(box)
+		print("box=",box)
+
+		cv2.drawContours(img,[box],0,(0,0,255),1)
+		#cv2.imshow('box',img)
+		for i in box:
+			cv2.circle(img,(i[0],i[1]), 3, (0,255,0), -1)
+		#cv2.imshow('circle',img)
+			
+		#box1=cv2.multiply(img, box)
+		#cv2.imwrite("box",box1)
+
 		bs= box[box[:,0].argsort()]#argshort returns the indices that would sort an array.
 		if bs[0][1]>bs[1][1] :
 			p3=bs[1]
@@ -98,10 +114,10 @@ def paint(contours,img,d):
 			print(mask)
 		
 		result=cv2.multiply(img, mask)
+		#cv2.imshow("multiply",result)
 		cnt1,hierarchy = cv2.findContours(result, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 		cnt1=sorted(cnt1,key=tri)
-		cv2.drawContours(img,cnt1,-1, (0,0,0),3)
-		
+		cv2.drawContours(img,cnt1,-1, (0,0,0),3)	
 		points=[]
 		k=0
 		for c in cnt1:
@@ -135,7 +151,7 @@ def generate(v,path):
 		writer.writeheader()
 		for i in range(len(waypoints)):
 			xi,yi=(waypoints[i])
-			cx,cy=(545,795)        #(545,795) est l'origine du nouveau repere
+			cx,cy=(0,0)        #(545,795) est l'origine du nouveau repere
 			x1,y1=xi-cx,cy-yi
 			Xr,Zr=x1*(2.54/96),y1*(2.54/96) # 2.54 cm = 1 inch et 96dpi (dots per inch) est la résolution de l'image actuelle
 			X,Z=(0.06*Xr),(Zr*0.06)         # on a choisie une echelle de 6 /// X et Z sont en mètre
@@ -147,20 +163,22 @@ def generate(v,path):
 
 img_origin=cv2.imread("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png")
 gray = cv2.cvtColor(img_origin, cv2.COLOR_BGR2GRAY )
-#cv2.imshow("diff_img",gray)
-#cv2.imwrite("diff.jpg",gray)
+cv2.imshow("diff_img",gray)
+cv2.imwrite("diff.jpg",gray)
 print("*********************Done1-2*****************")
 img_in,img,img1=init("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png","/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/jean2.png")# init(image_originale(avant le modification ),image_modele)
 contours,bw=FindContours(img,img1,img_in)
-waypoints=paint(contours,bw,20) #paint(image_originale,Rayon_spay(dans ce cas = 20 px))
+waypoints=paint(contours,bw,10) #paint(image_originale,Rayon_spay(dans ce cas = 20 px))
+cv2.imshow("result1",bw)
+cv2.imwrite("result1.png",bw)
 print(waypoints)
 cv2.drawContours(img_origin,contours,-1, (0,0,0),3)
 print("done")
 for i in range(len(waypoints)-1):
 	img_in=cv2.line(img_origin,waypoints[i],waypoints[i+1],(0,0,255),2)
-	#cv2.imshow("result2",img_origin)
-	cv2.imwrite("result2.png",img_origin)
-generate(waypoints,'WayPoints.csv')
+	cv2.imshow("result2",img_origin)
+	cv2.imwrite("result2.png",img_in)
+	#generate(waypoints,'WayPoints.csv')
 
 cv2.waitKey(0)
 

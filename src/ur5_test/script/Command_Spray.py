@@ -32,7 +32,7 @@ if __name__ == '__main__':
         pub = rospy.Publisher('/Command_SPRAY',Bool, queue_size=10)
         while  i < len(waypoints):
                 print("*************Transform***********")
-                listener.waitForTransform('/world','/tool0',rospy.Time(), rospy.Duration(2.0))
+                listener.waitForTransform('/world','/tool0',rospy.Time(), rospy.Duration(10.0))
                 (trans, rot) = listener.lookupTransform('/world', '/tool0', rospy.Time(0))
                 x,y,z=trans[0],trans[1],trans[2]
                 xi,yi,zi=waypoints[i]

@@ -9,7 +9,7 @@
     
 
   <group ns="jean"> 
-      <param name="robot_description" textfile="$(find ur_description)/urdf/test_jean.urdf" />
+    <param name="robot_description" textfile="$(find ur_description)/urdf/test_jean.urdf" />
     <arg name="x" default="0.223"/>
     <arg name="y" default="1"/>
     <arg name="z" default="0"/>
