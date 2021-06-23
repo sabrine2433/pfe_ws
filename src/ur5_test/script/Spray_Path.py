@@ -49,6 +49,8 @@ def fonction(pt1,pt2,pt3,pt4,d):
 
 def FindContours(img,img1,res):
 	diff=ImageChops.difference(img,img1)#diff est le résultat de soustraction de l'image original et le modele    
+	print('diff=',diff)
+
 	diff=diff.convert('L')                  # Convert the image to greyscale that we can applicate the edge and the other algorithms of the image pre-processing
 	new_img=np.array(diff) 	              
 	retval, bw = cv2.threshold(new_img,2,255, cv2.THRESH_BINARY | cv2.THRESH_OTSU) #bw est le resultat du seuillage pour determiner les zones à pulvériser
@@ -57,7 +59,8 @@ def FindContours(img,img1,res):
 	contours1,hierarchy = cv2.findContours(bw, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)# determiner les contours des zones d'interet 
 	cv2.drawContours(res,contours1,-1, (0,0,0),3)
 	
-	cv2.imshow('res',res)
+	cv2.imshow('contour',res)
+	cv2.imwrite("contour.jpg",res)
 	
 	return contours1,bw
 
@@ -76,12 +79,17 @@ def paint(contours,img,d):
 		box = np.int0(box)
 		print("box=",box)
 
-		cv2.drawContours(img,[box],0,(0,0,255),1)
-		#cv2.imshow('box',img)
+		cv2.drawContours(img,[box],-1,(60,255,128),2)
+		print('box done')
+		cv2.imshow('box',img)
+		cv2.imwrite("box.jpg",img)
+		
 		for i in box:
-			cv2.circle(img,(i[0],i[1]), 3, (0,255,0), -1)
-		#cv2.imshow('circle',img)
-			
+			cv2.circle(img,(i[0],i[1]), 10, (128,255,0),2)
+			print('circle done')
+			cv2.imshow('circle',img)
+			cv2.imwrite("circle.jpg",img)
+		
 		#box1=cv2.multiply(img, box)
 		#cv2.imwrite("box",box1)
 
@@ -110,14 +118,22 @@ def paint(contours,img,d):
 			p1,p2=fonction(pt3,pt4,pt2,pt1,d*i)		
 			points.append(p1)
 			points.append(p2)
-			mask=cv2.line(img,p1,p2,(255,0,255),2)  
-			print(mask)
-		
+			mask=cv2.line(img,p2,p1,(128,0,255),2)  
+			#print(mask)
+			cv2.imshow("mask",mask)
+			cv2.imwrite("mask.jpg",mask)
+
 		result=cv2.multiply(img, mask)
-		#cv2.imshow("multiply",result)
+		cv2.imshow("multiply",result)
+		cv2.imwrite("moltiply.jpg",result)
+
+		
 		cnt1,hierarchy = cv2.findContours(result, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 		cnt1=sorted(cnt1,key=tri)
-		cv2.drawContours(img,cnt1,-1, (0,0,0),3)	
+		cv2.drawContours(img,cnt1,-1, (60,255,128),2)	
+		cv2.imshow("multiply2",img)
+		cv2.imwrite("multiply2.jpg",img)
+
 		points=[]
 		k=0
 		for c in cnt1:
@@ -161,24 +177,37 @@ def generate(v,path):
 
 
 
-img_origin=cv2.imread("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png")
+img_origin=cv2.imread("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original.jpg")
 gray = cv2.cvtColor(img_origin, cv2.COLOR_BGR2GRAY )
 cv2.imshow("diff_img",gray)
 cv2.imwrite("diff.jpg",gray)
+
 print("*********************Done1-2*****************")
-img_in,img,img1=init("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original2.png","/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/jean2.png")# init(image_originale(avant le modification ),image_modele)
-contours,bw=FindContours(img,img1,img_in)
-waypoints=paint(contours,bw,10) #paint(image_originale,Rayon_spay(dans ce cas = 20 px))
-cv2.imshow("result1",bw)
-cv2.imwrite("result1.png",bw)
+img_in,img,img1=init("/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/original.jpg","/home/sabrine/Bureau/pfe_ws/src/ur5_test/script/images/modele.jpg")# init(image_originale(avant le modification ),image_modele)
+difff=img-img_in
+cv2.imshow("diff_img",difff)
+cv2.imwrite("diff_img.jpg",difff)
+
+contours,bw=FindContours(img1,img,img_in)
+waypoints=paint(contours,bw,20) #paint(image_originale,Rayon_spay(dans ce cas = 20 px))
+#cv2.imshow("result1",bw)
+#cv2.imwrite("result1.png",bw)
 print(waypoints)
-cv2.drawContours(img_origin,contours,-1, (0,0,0),3)
+
+cv2.drawContours(img_origin,contours,-1, (255,0,0),2)
+
+cv2.imshow("pp",img_origin)
+cv2.imwrite("pp.png",img_in)
+
 print("done")
 for i in range(len(waypoints)-1):
-	img_in=cv2.line(img_origin,waypoints[i],waypoints[i+1],(0,0,255),2)
-	cv2.imshow("result2",img_origin)
-	cv2.imwrite("result2.png",img_in)
-	#generate(waypoints,'WayPoints.csv')
+	img_in=cv2.line(img_origin,waypoints[i+1],waypoints[i],(0,0,0),1)
+
+cv2.imshow("result2",img_origin)
+cv2.imwrite("result2.png",img_in)
+
+
+generate(waypoints,'WayPoints.csv')
 
 cv2.waitKey(0)
 
